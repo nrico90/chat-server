@@ -14,15 +14,29 @@ const router = new Router();
 //     .catch(next);
 // });
 router.get("/message", async (req, res, next) => {
-  const messages = await Message.findAll();
+  try {
+    const messages = await Message.findAll();
 
-  res.send(messages);
+    res.send(messages);
+  } catch (error) {
+    next(error);
+  }
 });
 
 router.post("/message", async (req, res, next) => {
-  const message = await Message.create(req.body);
+  try {
+    const message = await Message.create(req.body);
 
-  res.send(message);
+    res.send(message);
+  } catch (error) {
+    next(error);
+  }
 });
+
+// router.post("/message", (req, res, next) => {
+//     Message.create(req.body) //sequelize will use this to populate row's fields
+//       .then(message => res.status(200).send(message))
+//       .catch(next);
+//   });
 
 module.exports = router;
