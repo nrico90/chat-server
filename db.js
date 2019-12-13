@@ -6,7 +6,8 @@ const databaseUrl =
 
 const db = new Sequelize(databaseUrl);
 
-db.sync({ force: false }).then(() => console.log("Database connected"));
+//al principio estaba en false para salvar la data. una vez escribimos true, toda la data desaparece
+db.sync({ force: true }).then(() => console.log("Database connected"));
 //   .catch(console.error);
 
 module.exports = db;
