@@ -32,7 +32,13 @@ app.get("/", (req, res) => {
 app.get("/stream", async (req, res, next) => {
   try {
     const messages = await Message.findAll(); // get array out of database
-    const string = JSON.stringify(messages); //pasar data a json, convert array into string - "serialize" it
+
+    const action = {
+      type: "ALL_MESSAGES",
+      payload: messages
+    };
+
+    const string = JSON.stringify(action); //pasar data a json, convert array into string - "serialize" it
 
     stream.updateInit(string); //send/prepare data(string) to client right after they connect
     stream.init(req, res); // conectar al user con stream
